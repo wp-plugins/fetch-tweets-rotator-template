@@ -32,5 +32,8 @@ In order to use this template, [Fetch Tweets](http://wordpress.org/plugins/fetch
 
 == Change log ==
 
+= 1.0.1 =
+- Fixed a PHP warning of undefined constant.
+
 = 1.0.0 - 05/01/2014 =
 Initial release.

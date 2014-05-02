@@ -5,7 +5,7 @@
 	Description: Rotates tweets of the Fetch Tweets plugin.
 	Author: Michael Uno
 	Author URI: http://michaeluno.jp
-	Version: 1.0.0
+	Version: 1.0.1
 	Requirements: PHP 5.2.4 or above, WordPress 3.3 or above.
 	Text Domain: fetch-tweets-rotator-template
 */ 

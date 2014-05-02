@@ -24,8 +24,11 @@ class FetchTweets_Template_Settings_Rotator extends FetchTweets_Template_Setting
 		
 		parent::__construct( $sTemplateDirPath );
 		
-		$_sPluginBaseName = plugin_basename( FETCHTWEETS_ROTATOR_TEMPLETE_PATH ); 
-		add_filter( "plugin_action_links_{$_sPluginBaseName}", array( $this, '_replyToInsertPluginLink' ) );		
+		// If not checked, it causes a PHP warning at the plugin deactivation.
+		if ( defined( 'FETCHTWEETS_ROTATOR_TEMPLETE_PATH' ) ) {
+			$_sPluginBaseName = plugin_basename( FETCHTWEETS_ROTATOR_TEMPLETE_PATH ); 
+			add_filter( "plugin_action_links_{$_sPluginBaseName}", array( $this, '_replyToInsertPluginLink' ) );		
+		}
 		
 	}
 		public function _replyToInsertPluginLink( $aLinks ) {

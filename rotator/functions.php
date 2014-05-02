@@ -4,6 +4,7 @@
  */
 function enqueueFetchTweetsRotatorTemplateAssets() {
 	
+	if ( ! defined( 'FETCHTWEETS_ROTATOR_TEMPLETE_PATH' ) ) return;
 	wp_enqueue_script( 'fetch-tweets-rotator-template-bxslider', plugins_url( 'rotator/asset/bxslider/jquery.bxslider.min.js', FETCHTWEETS_ROTATOR_TEMPLETE_PATH ), array(), '', true );
 	wp_enqueue_style( 'fetch-tweets-rotator-template-bxslider-style', plugins_url( 'rotator/asset/bxslider/jquery.bxslider.css', FETCHTWEETS_ROTATOR_TEMPLETE_PATH ) );
 
