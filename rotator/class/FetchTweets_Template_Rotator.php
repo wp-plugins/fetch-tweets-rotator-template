@@ -11,9 +11,8 @@ class FetchTweets_Template_Rotator extends FetchTweets_Template_Rotator_Base {
 	 */
 	public function getOutput( array $aTweets ) {
 		
-		$_aArgs = $this->_aArgs;
-// var_dump( $_aArgs );
-		$_aAttributes_Wrapper = array(
+		$_aArgs                 = $this->_aArgs;
+		$_aAttributes_Wrapper   = array(
 			'class'	=>	$this->_sBaseClassSelector . '_wrapper',
 			'style'	=>	$this->_generateStyleAttribute(
 				array(
@@ -43,11 +42,10 @@ class FetchTweets_Template_Rotator extends FetchTweets_Template_Rotator_Base {
 				
 		private function _getTweets( array $aTweets, array $aArgs ) {
 			
-			// Store tweets 
 			$_aOutput = array();
 			foreach( $aTweets as $_aTweet ) {
 				
-				if ( ! isset( $_aTweet['user'] ) ) continue;
+				if ( ! isset( $_aTweet['user'] ) ) { continue; }
 				
 				// Check if it's a retweet.
 				$_fIsRetweet = isset( $_aTweet['retweeted_status']['text'] );
@@ -66,8 +64,8 @@ class FetchTweets_Template_Rotator extends FetchTweets_Template_Rotator_Base {
 			}
 			
 			// Items per slide
-			$_iCountTweets = count( $_aOutput );	// how many tweets 
-			$_iDivisions = ceil( $_iCountTweets / $aArgs['items_per_slide'] );	// how many divided sections are necessary
+			$_iCountTweets  = count( $_aOutput );	// how many tweets 
+			$_iDivisions    = ceil( $_iCountTweets / $aArgs['items_per_slide'] );	// how many divided sections are necessary
 			$_aDividedTweets = array();
 			for ( $i = 1; $i <= $_iDivisions; $i++ ) {
 						
@@ -75,8 +73,8 @@ class FetchTweets_Template_Rotator extends FetchTweets_Template_Rotator_Base {
 					'class'	=>	$this->_sBaseClassSelector . '-items',
 					'style'	=>	$this->_generateStyleAttribute(
 						array(
-							'display'	=>	1 === $i ? 'block' : 'none',
-							'padding'			=>	$this->_getTRBL( $aArgs['paddings'][ 0 ], $aArgs['paddings'][ 1 ], $aArgs['paddings'][ 2 ], $aArgs['paddings'][ 3 ] ),
+							'display'   =>	1 === $i ? 'block' : 'none',
+							'padding'   =>	$this->_getTRBL( $aArgs['paddings'][ 0 ], $aArgs['paddings'][ 1 ], $aArgs['paddings'][ 2 ], $aArgs['paddings'][ 3 ] ),
 						)
 					),
 				);
@@ -96,9 +94,7 @@ class FetchTweets_Template_Rotator extends FetchTweets_Template_Rotator_Base {
 
 				$_aOutput = array();
 				for( $i=1; $i <= $iItems; $i++ ) {
-						
 					$_aOutput[] = array_shift( $aTweets );
-					
 				}
 				return implode( PHP_EOL, $_aOutput );
 				
@@ -113,10 +109,7 @@ class FetchTweets_Template_Rotator extends FetchTweets_Template_Rotator_Base {
 				$_aAttributes = array(
 					'class'	=>	$this->_sBaseClassSelector . "-item" . $_sRetweetClassSelector,
 					'style'	=>	$this->_generateStyleAttribute(	
-						array(
-						
-						
-						)
+						array()
 					),
 				);
 				return "<div " . $this->_generateAttributes( $_aAttributes ) . " />" . PHP_EOL
@@ -138,8 +131,8 @@ class FetchTweets_Template_Rotator extends FetchTweets_Template_Rotator_Base {
 			
 			private function _getAvatar( array $aTweet, array $aArgs ) {
 				
-				if ( ! $aArgs['visibilities']['avatar'] ) return '';
-				if ( $aArgs['avatar_size'] <= 0 ) return '';
+				if ( ! $aArgs['visibilities']['avatar'] ) { return ''; }
+				if ( $aArgs['avatar_size'] <= 0 ) { return ''; }
 				
 				
 				$_iMarginForImageContainer = round( ( int ) $aArgs['avatar_size']  / 100 , 2 );
@@ -173,7 +166,7 @@ class FetchTweets_Template_Rotator extends FetchTweets_Template_Rotator_Base {
 					),						
 				);
 				return "<div " . $this->_generateAttributes( $_aAttributes ) . ">" . PHP_EOL
-						. "<a target='_blank' href='https://twitter.com/{$aTweet['user']['screen_name']}'>" . PHP_EOL
+						. "<a target='_blank' href='" . esc_url( "https://twitter.com/{$aTweet['user']['screen_name']}", 'https' ) . "'>" . PHP_EOL
 							. "<img " . $this->_generateAttributes( $_aIMGAttributes ) . "/>" . PHP_EOL
 						. "</a>" . PHP_EOL
 					. "</div>" . PHP_EOL;
@@ -215,7 +208,7 @@ class FetchTweets_Template_Rotator extends FetchTweets_Template_Rotator_Base {
 					
 					return "<span class='{$this->_sBaseClassSelector}-user-name'>" . PHP_EOL
 							. "<strong>" . PHP_EOL
-								. "<a target='_blank' href='https://twitter.com/{$aTweet['user']['screen_name']}'>" . PHP_EOL
+								. "<a target='_blank' href='" . esc_url( "https://twitter.com/{$aTweet['user']['screen_name']}" ) . "'>" . PHP_EOL
 									. $aTweet['user']['name'] . PHP_EOL
 								. "</a>" . PHP_EOL
 							. "</strong>" . PHP_EOL
@@ -228,8 +221,8 @@ class FetchTweets_Template_Rotator extends FetchTweets_Template_Rotator_Base {
 					return "<span class='{$this->_sBaseClassSelector}-tweet-created-at'>"	
 							. "<a " . $this->_generateAttributes(
 								array(
-									'target'	=>	'_blank',
-									'href'		=>	'https://twitter.com/' . $aTweet['user']['screen_name'] . '/status/' . $aTweet['id_str'],
+									'target'    => '_blank',
+									'href'      => esc_url( 'https://twitter.com/' . $aTweet['user']['screen_name'] . '/status/' . $aTweet['id_str'] ),
 								)
 							) . ">"
 								. human_time_diff( $aTweet['created_at'], current_time('timestamp') - $this->_sGMTOffset ) . ' ' . __( 'ago', 'fetch-tweets' )
@@ -260,7 +253,7 @@ class FetchTweets_Template_Rotator extends FetchTweets_Template_Rotator_Base {
 					
 					return "<span class='{$this->_sBaseClassSelector}-retweet-credit'>" . PHP_EOL
 							. __( 'Retweeted by', 'fetch-tweets' ) . PHP_EOL
-							. "<a target='_blank' href='https://twitter.com/{$_aDetail['user']['screen_name']}'>" . PHP_EOL
+							. "<a target='_blank' href='" . esc_url( "https://twitter.com/{$_aDetail['user']['screen_name']}" ) . "'>" . PHP_EOL
 								. $_aDetail['user']['name'] . PHP_EOL
 							. "</a>" . PHP_EOL
 						. "</span>" . PHP_EOL;
@@ -304,7 +297,7 @@ class FetchTweets_Template_Rotator extends FetchTweets_Template_Rotator_Base {
 					break;					
 				}
 				return "<li class='{$this->_sBaseClassSelector}-intent-{$sIntent}'>"
-					. "<a href='{$_sActionURL}' ref='nofollow' target='_blank' title='" . __( ucfirst( $sIntent ), 'fetch-tweets' ) . "'>"
+					. "<a href='" . esc_url( $_sActionURL ) . "' ref='nofollow' target='_blank' title='" . __( ucfirst( $sIntent ), 'fetch-tweets' ) . "'>"
 						. $_sOutput 
 					. "</a>"
 				. "</li>";
@@ -317,8 +310,9 @@ class FetchTweets_Template_Rotator extends FetchTweets_Template_Rotator_Base {
 
 		return "
 			<script type='text/javascript'>		
-				jQuery( document).ready( function(){ jQuery( '#{$sIDAttribute}' ).bxSlider(
-					{
+				jQuery( document ).ready( function(){ 
+
+					jQuery( '#{$sIDAttribute}' ).bxSlider( {
 						mode: '{$aArgs['transition_mode']}',		// 'horizontal', 'vertical', 'fade'
 						// captions: true,
 						// ticker: false,
@@ -334,11 +328,9 @@ class FetchTweets_Template_Rotator extends FetchTweets_Template_Rotator_Base {
 						prevSelector: '#proprev',
 						randomStart: " . ( $aArgs['randomStart'] ? 'true' : 'false' ) . ",
   						autoHover: true,
-					}
-				)
-				} );
+					});
+				});
 			</script>"; 
-	
 	}
 	
 }

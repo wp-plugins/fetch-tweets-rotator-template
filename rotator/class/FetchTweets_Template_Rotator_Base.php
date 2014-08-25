@@ -45,11 +45,10 @@ class FetchTweets_Template_Rotator_Base {
 
 	public function __construct( array $aArgs, array $aTemplateOptions ) {	
 		
-		$this->_aArgs = $this->_getArgs( $aArgs, $aTemplateOptions );
-		
-		$this->_sIDAttribute = 'fetch_tweets_rotator_' . uniqid();
-		$this->_sGMTOffset = ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS );
-		$this->_fIsSSL = is_ssl();
+		$this->_aArgs           = $this->_getArgs( $aArgs, $aTemplateOptions );
+		$this->_sIDAttribute    = 'fetch_tweets_rotator_' . uniqid();
+		$this->_sGMTOffset      = ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS );
+		$this->_fIsSSL          = is_ssl();
 	
 	}
 
@@ -110,8 +109,8 @@ class FetchTweets_Template_Rotator_Base {
 		
 		$_aOutput = array();
 		foreach ( $aInlineStyles as $sProperty => $sValue ) {
-			if ( ! $sValue ) continue;
-			$_aOutput[] = $sProperty . ': ' . $sValue . ';';
+			if ( ! $sValue ) { continue; }
+			$_aOutput[] = esc_attr( $sProperty . ': ' . $sValue . ';' );
 		}
 		return implode( ' ', $_aOutput );	
 		
@@ -145,7 +144,7 @@ class FetchTweets_Template_Rotator_Base {
 				: 0;
 			
 		}
-		return implode( ' ', $_aOutput );
+		return esc_attr( implode( ' ', $_aOutput ) );
 	
 	}
 	
@@ -173,10 +172,20 @@ class FetchTweets_Template_Rotator_Base {
 	protected function _generateAttributes( array $aAttributes ) {
 		
 		foreach( $aAttributes as $sAttribute => &$asProperty ) {
-			if ( is_array( $asProperty ) || is_object( $asProperty ) )
+            
+			if ( is_array( $asProperty ) || is_object( $asProperty ) ) {
 				unset( $aAttributes[ $sAttribute ] );
-			if ( is_string( $asProperty ) )
-				$asProperty = esc_attr( $asProperty );	 // $aAttributes = array_map( 'esc_attr', $aAttributes );	// this also converts arrays into string value, Array.
+            }
+            
+			if ( ! is_string( $asProperty ) ) { continue; }
+            
+            if ( filter_var( $asProperty, FILTER_VALIDATE_URL) ) {
+                $asProperty = esc_url( $asProperty );
+                continue;
+            }
+            
+			$asProperty = esc_attr( $asProperty );	 // $aAttributes = array_map( 'esc_attr', $aAttributes );	// this also converts arrays into string value, Array.
+            
 		}		
 		return $this->__generateAttributes( $aAttributes );
 		

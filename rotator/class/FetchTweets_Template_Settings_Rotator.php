@@ -14,10 +14,10 @@ class FetchTweets_Template_Settings_Rotator extends FetchTweets_Template_Setting
 	/*
 	 * Modify these properties.
 	 * */
-	protected $sParentPageSlug = 'fetch_tweets_templates';	// in the url, the ... part of ?page=... 
-	protected $sParentTabSlug = 'rotator';	// in the url, the ... part of &tab=...
-	protected $sTemplateName = 'Rotator';	// the template name
-	protected $sSectionID = 'template_rotator';
+	protected $sParentPageSlug  = 'fetch_tweets_templates';	// in the url, the ... part of ?page=... 
+	protected $sParentTabSlug   = 'rotator';	// in the url, the ... part of &tab=...
+	protected $sTemplateName    = 'Rotator';	// the template name
+	protected $sSectionID       = 'template_rotator';
 	
 	
 	public function  __construct( $sTemplateDirPath='' ) {
@@ -292,7 +292,7 @@ class FetchTweets_Template_Settings_Rotator extends FetchTweets_Template_Setting
 		$aFields[ $this->sSectionID ]['visibilities'] = array(
 			'field_id' => 'visibilities',
 			'section_id' => $this->sSectionID,
-			'title' => __( 'Visibilities', 'fetch-tweets' ),
+			'title' => __( 'Visibility', 'fetch-tweets' ),
 			'type' => 'checkbox',
 			'label' => array(
 				'avatar'			=> __( 'Profile Image', 'fetch-tweets' ),
