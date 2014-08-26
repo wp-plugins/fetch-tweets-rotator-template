@@ -33,10 +33,9 @@ class FetchTweets_Template_Rotator extends FetchTweets_Template_Rotator_Base {
 		add_action( 'wp_footer', array( $this, '_replyToInsertScript' ) );
 		return "<div " . $this->_generateAttributes( $_aAttributes_Wrapper ) . "/>" . PHP_EOL
 				. "<div " . $this->_generateAttributes( $_aAttributes ) . "/>" . PHP_EOL
-					. $this->_getTweets( $aTweets, $_aArgs ) . PHP_EOL
+					. $this->_getTweets( $aTweets, $_aArgs ). PHP_EOL
 				. "</div>" . PHP_EOL
 			. "</div>" . PHP_EOL;
-
 		
 	}
 				
@@ -74,7 +73,8 @@ class FetchTweets_Template_Rotator extends FetchTweets_Template_Rotator_Base {
 					'style'	=>	$this->_generateStyleAttribute(
 						array(
 							'display'   =>	1 === $i ? 'block' : 'none',
-							'padding'   =>	$this->_getTRBL( $aArgs['paddings'][ 0 ], $aArgs['paddings'][ 1 ], $aArgs['paddings'][ 2 ], $aArgs['paddings'][ 3 ] ),
+                            'padding'   =>	'0',
+                            // 'width'     =>  '100%',
 						)
 					),
 				);
@@ -109,7 +109,10 @@ class FetchTweets_Template_Rotator extends FetchTweets_Template_Rotator_Base {
 				$_aAttributes = array(
 					'class'	=>	$this->_sBaseClassSelector . "-item" . $_sRetweetClassSelector,
 					'style'	=>	$this->_generateStyleAttribute(	
-						array()
+                        array( 
+                            // this padding will be removed and set to the parent wrapper container of the bxSlider script
+                            'padding'   =>	$this->_getTRBL( $aArgs['paddings'][ 0 ], $aArgs['paddings'][ 1 ], $aArgs['paddings'][ 2 ], $aArgs['paddings'][ 3 ] ),
+                        )
 					),
 				);
 				return "<div " . $this->_generateAttributes( $_aAttributes ) . " />" . PHP_EOL
@@ -135,7 +138,8 @@ class FetchTweets_Template_Rotator extends FetchTweets_Template_Rotator_Base {
 				if ( $aArgs['avatar_size'] <= 0 ) { return ''; }
 				
 				
-				$_iMarginForImageContainer = round( ( int ) $aArgs['avatar_size']  / 100 , 2 );
+				$_iMarginForImageContainer          = round( ( int ) $aArgs['avatar_size'] / 120 , 3 );
+				$_iMarginForImageContainer_Bottom   = round( $_iMarginForImageContainer / 3 , 2 );
 				$_aAttributes = array(
 					'class'	=>	$this->_sBaseClassSelector . '-profile-image',
 					'style'	=>	$this->_generateStyleAttribute(	
@@ -146,9 +150,9 @@ class FetchTweets_Template_Rotator extends FetchTweets_Template_Rotator_Base {
 							"clear"			=>	$aArgs['avatar_position'],
 							"margin"		=>	$aArgs['visibilities']['avatar'] 
 								? $this->_getTRBL( 
-									array( 'size' => 0 ), // top
+									array( 'size' => '0.2', 'unit' => 'em' ), // top
 									array( 'size' => 'left' === $aArgs['avatar_position'] ? $_iMarginForImageContainer : 0, 'unit' => 'em' ),  	// right
-									array( 'size' => $_iMarginForImageContainer, 'unit' => 'em' ),	// bottom	
+									array( 'size' => $_iMarginForImageContainer_Bottom, 'unit' => 'em' ),	// bottom	
 									array( 'size' => 'left' === $aArgs['avatar_position'] ? 0 : $_iMarginForImageContainer, 'unit' => 'em' )		// left
 								)
 								// ? ( $aArgs['avatar_position'] == 'left' ? "margin-right: " : "margin-left: " ) . $_iMarginForImageContainer . ' margin-bottom: ' . $_iMarginForImageContainer
@@ -156,21 +160,29 @@ class FetchTweets_Template_Rotator extends FetchTweets_Template_Rotator_Base {
 						)
 					),				
 				);
+
+                $_sIMGURLDefault = getTwitterProfileImageURLBySize( $this->_fIsSSL ? $aTweet['user']['profile_image_url_https'] : $aTweet['user']['profile_image_url'], 100 );  
+                $_sIMGURL        = getTwitterProfileImageURLBySize( $this->_fIsSSL ? $aTweet['user']['profile_image_url_https'] : $aTweet['user']['profile_image_url'], $aArgs['avatar_size'] );        
 				$_aIMGAttributes = array(
-					'src'	=>	getTwitterProfileImageURLBySize( $this->_fIsSSL ? $aTweet['user']['profile_image_url_https'] : $aTweet['user']['profile_image_url'], $aArgs['avatar_size'] ),
+                    'class'     =>  'avatar-' . $aTweet['user']['screen_name'],
+                    'src'       =>  esc_url( $_sIMGURL ),
+                    // Some avatars don't have the sized images and if the image does not load, the rotator script fails to load.
+                    // So load the default avarar regardless of the size.
 					'style'	=>	$this->_generateStyleAttribute(	
 						array(
-							'max-width'	=>	$aArgs['avatar_size'] . 'px',
-							'border-radius'	=>	'5px',
+							'max-width'         => $aArgs['avatar_size'] . 'px',
+							'border-radius'     => '5px',                     
 						)
-					),						
+					),
+                    'onerror'   =>  'this.onerror=null;this.src="' . esc_url( $_sIMGURLDefault ) . '";',    // substitute
 				);
 				return "<div " . $this->_generateAttributes( $_aAttributes ) . ">" . PHP_EOL
 						. "<a target='_blank' href='" . esc_url( "https://twitter.com/{$aTweet['user']['screen_name']}", 'https' ) . "'>" . PHP_EOL
 							. "<img " . $this->_generateAttributes( $_aIMGAttributes ) . "/>" . PHP_EOL
 						. "</a>" . PHP_EOL
-					. "</div>" . PHP_EOL;
-				
+					. "</div>" . PHP_EOL
+                ; 
+
 			}			
 		
 			private function _getMain( array $aTweet, array $aArgs, $fIsRetweet ) {
@@ -242,7 +254,7 @@ class FetchTweets_Template_Rotator extends FetchTweets_Template_Rotator_Base {
 			private function _getText( array $aTweet, array $aArgs, $fIsRetweet ) {
 				
 				return "<p class='{$this->_sBaseClassSelector}-text'>" . PHP_EOL
-						.	trim( $aTweet['text'] ) . PHP_EOL
+						. trim( $aTweet['text'] ) . PHP_EOL
 						. $this->_getRetweetInfo( $aTweet, $aArgs, $fIsRetweet ) . PHP_EOL
 					. "</p>" . PHP_EOL;
 		
@@ -297,7 +309,7 @@ class FetchTweets_Template_Rotator extends FetchTweets_Template_Rotator_Base {
 					break;					
 				}
 				return "<li class='{$this->_sBaseClassSelector}-intent-{$sIntent}'>"
-					. "<a href='" . esc_url( $_sActionURL ) . "' ref='nofollow' target='_blank' title='" . __( ucfirst( $sIntent ), 'fetch-tweets' ) . "'>"
+					. "<a href='" . esc_url( $_sActionURL ) . "' ref='nofollow' target='_blank' title='" . esc_attr( __( ucfirst( $sIntent ), 'fetch-tweets' ) ) . "'>"
 						. $_sOutput 
 					. "</a>"
 				. "</li>";
@@ -328,6 +340,10 @@ class FetchTweets_Template_Rotator extends FetchTweets_Template_Rotator_Base {
 						prevSelector: '#proprev',
 						randomStart: " . ( $aArgs['randomStart'] ? 'true' : 'false' ) . ",
   						autoHover: true,
+                        onSliderLoad: function ( oCurrentIndex ) {
+                        },                                               
+                        onSliderBefore: function ( oSlideElement, oOldIndex, oNewIndex ) {
+                        },                             
 					});
 				});
 			</script>"; 

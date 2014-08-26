@@ -196,7 +196,7 @@ class FetchTweets_Template_Rotator_Base {
 		 * For example, 
 		 * 	array( 'id' => 'my_id', 'name' => 'my_name', 'style' => 'background-color:#fff' )
 		 * becomes
-		 * 	id="my_id" name="my_name" style="background-color:#fff"
+		 * 	id='my_id' name='my_name' style='background-color:#fff'
 		 * 
 		 * This is mostly used by the method to output input fields.
 		 * @since			1.0.0

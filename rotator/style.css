@@ -4,17 +4,15 @@ Template URI: http://en.michaeluno.jp
 Author: Michael Uno
 Author URI: http://en.michaeluno.jp
 Description: Rotates tweets.
-Version: 1.0.0
+Version: 1.0.3
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: default
 Text Domain: fetch-tweets-rotator-template
 */
 
-
-
 .fetch-tweets-rotator {
-	height: 100%;	/* required to have the background-color take effect. */
+	height: 100%;	/* required to have the background-color take effect. */ 
 }
 
 .fetch-tweets-rotator a {
@@ -90,11 +88,22 @@ div.fetch-tweets-rotator-body p.fetch-tweets-rotator-text {
 /**
  * Some fixes for bxSlider
  */
+
 .bx-wrapper .bx-viewport  {
-	background-color: transparent;
+ 	background-color: transparent;
 	border: 5px 5px solid transparent;
 	
+    
 	box-shadow: 0 0 5px #ccc;
-	box-shadow: 0 0 5px 1px #ccc\9; /* IE only */ 
+	box-shadow: 0 0 5px 1px #ccc\9;  
 	
+ 
 }
+
+.fetch-tweets-rotator_wrapper {
+    /* background-color: transparent;
+    border: 5px 5px solid transparent; */
+/*     box-shadow: 0 0 5px #ccc;
+    box-shadow: 0 0 5px 1px #ccc\9;  */
+} 
+    /* IE only   */

@@ -32,6 +32,10 @@ In order to use this template, [Fetch Tweets](http://wordpress.org/plugins/fetch
 
 == Change log ==
 
+= 1.0.3 - 08/27/2014 =
+- Fixed a bug that when an image fails to load, the slider stalled.
+- Fixed an issue that the items container width did not fit in the upper container width.
+
 = 1.0.2 - 08/25/2014 =
 - Fixed an issue of escaping attribute values.
 
