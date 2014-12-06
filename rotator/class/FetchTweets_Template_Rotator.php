@@ -48,7 +48,7 @@ class FetchTweets_Template_Rotator extends FetchTweets_Template_Rotator_Base {
 				
 				// Check if it's a retweet.
 				$_fIsRetweet = isset( $_aTweet['retweeted_status']['text'] );
-				if ( $_fIsRetweet && ! $aArgs['include_rts'] ) continue;	// if disabled skip.
+				if ( $_fIsRetweet && ! $aArgs['include_rts'] ) { continue; }	// if disabled skip.
 				
 				$_aTweet = $_fIsRetweet ? $_aTweet['retweeted_status'] : $_aTweet;
 				
@@ -255,8 +255,13 @@ class FetchTweets_Template_Rotator extends FetchTweets_Template_Rotator_Base {
 				
 				return "<p class='{$this->_sBaseClassSelector}-text'>" . PHP_EOL
 						. trim( $aTweet['text'] ) . PHP_EOL
-						. $this->_getRetweetInfo( $aTweet, $aArgs, $fIsRetweet ) . PHP_EOL
-					. "</p>" . PHP_EOL;
+					. "</p>" . PHP_EOL
+                    . ( isset( $aTweet['_media'] ) 
+                        ? $aTweet['_media'] . PHP_EOL
+                        : ''
+                    )
+                    . $this->_getRetweetInfo( $aTweet, $aArgs, $fIsRetweet ) . PHP_EOL
+                    ;
 		
 			}
 				private function _getRetweetInfo( array $aTweet, array $aArgs, $fIsRetweet ) {

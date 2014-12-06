@@ -1,4 +1,4 @@
-Fetch Tweets - Fetch Tweets - Rotator Template
+Fetch Tweets - Rotator Template
 Copyright (C) 2014 Michael Uno
 
 This program is free software; you can redistribute it and/or modify

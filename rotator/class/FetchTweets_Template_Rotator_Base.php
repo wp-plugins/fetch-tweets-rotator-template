@@ -19,7 +19,7 @@ class FetchTweets_Template_Rotator_Base {
 		'avatar_size'			=> 48,
 		'avatar_position'		=> 'right',
 		'max_width'				=> array( 'size' => 100, 'unit' => '%' ),
-		'max_height'			=> array( 'size' => 400, 'unit' => 'px' ),
+		'max_height'			=> array( 'size' => 100, 'unit' => '%' ),
 		'background_color'		=> 'transparent',
 		'intent_buttons'		=> 2,
 		'intent_script'			=> 1,

@@ -7,5 +7,10 @@
  * - $aOptions : the plugin options saved in the database.
  * */
  
-$oRotator = new FetchTweets_Template_Rotator( $aArgs, isset( $aOptions['template_rotator'] ) ? $aOptions['template_rotator'] : array() );
-echo $oRotator->getOutput( $aTweets );
+$_oRotator = new FetchTweets_Template_Rotator( 
+    $aArgs, 
+    isset( $aOptions['template_rotator'] ) 
+        ? $aOptions['template_rotator'] 
+        : array() 
+);
+echo $_oRotator->getOutput( $aTweets );

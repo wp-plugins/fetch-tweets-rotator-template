@@ -1,14 +1,14 @@
 /*
-Template Name: Rotator
-Template URI: http://en.michaeluno.jp
-Author: Michael Uno
-Author URI: http://en.michaeluno.jp
-Description: Rotates tweets.
-Version: 1.0.3
-License: GNU General Public License v2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Tags: default
-Text Domain: fetch-tweets-rotator-template
+    Template Name:  Rotator
+    Template URI:   http://en.michaeluno.jp
+    Author:         Michael Uno
+    Author URI:     http://en.michaeluno.jp
+    Description:    Rotates tweets.
+    Version:        1.0.4
+    License:        GNU General Public License v2 or later
+    License URI:    http://www.gnu.org/licenses/gpl-2.0.html
+    Tags:           default
+    Text Domain:    fetch-tweets-rotator-template
 */
 
 .fetch-tweets-rotator {
@@ -83,6 +83,10 @@ div.fetch-tweets-rotator-body p.fetch-tweets-rotator-text {
 	height: auto !important;	
 }
 .fetch-tweets-rotator .fetch-tweets-rotator-media {
+}
+.fetch-tweets-rotator .fetch-tweets-media {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 /**
