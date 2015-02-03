@@ -1,18 +1,27 @@
 <?php
 /**
- * Proper way to enqueue scripts and styles
+ *  Rotates tweets fetched with the Fetch Tweets plugin.
+ *  
+ *  @package          Fetch Tweets - Rotator Template
+ *  @copyright        Copyright (c) 2014-2015, Michael Uno
+ *  @authorurl        http://michaeluno.jp
+ *  @license          http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ *  
  */
-function enqueueFetchTweetsRotatorTemplateAssets() {
-	
-	if ( ! defined( 'FETCHTWEETS_ROTATOR_TEMPLETE_PATH' ) ) { return; }
-	wp_enqueue_script( 'fetch-tweets-rotator-template-bxslider', plugins_url( 'rotator/asset/bxslider/jquery.bxslider.min.js', FETCHTWEETS_ROTATOR_TEMPLETE_PATH ), array(), '', true );
-	wp_enqueue_style( 'fetch-tweets-rotator-template-bxslider-style', plugins_url( 'rotator/asset/bxslider/jquery.bxslider.css', FETCHTWEETS_ROTATOR_TEMPLETE_PATH ) );
 
+if ( ! defined( 'FETCHTWEETS_ROTATOR_TEMPLETE_PATH' ) ) { 
+    return; 
 }
-add_action( 'wp_enqueue_scripts', 'enqueueFetchTweetsRotatorTemplateAssets' );
 
 /**
- * Include output handler classes.
+ * Include classes
  */
-include( dirname( __FILE__ ) . '/class/FetchTweets_Template_Rotator_Base.php' );
-include( dirname( __FILE__ ) . '/class/FetchTweets_Template_Rotator.php' );
+$_sDirName = dirname( __FILE__ );
+include( $_sDirName . '/class/FetchTweets_Template_Rotator_Base.php' );
+include( $_sDirName . '/class/FetchTweets_Template_Rotator.php' );
+include( $_sDirName . '/class/FetchTweets_Template_Rotator_Resource.php' );
+
+/**
+ * Load resources
+ */
+new FetchTweets_Template_Rotator_Resource;

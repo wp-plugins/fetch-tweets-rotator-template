@@ -4,7 +4,7 @@
     Author:         Michael Uno
     Author URI:     http://en.michaeluno.jp
     Description:    Rotates tweets.
-    Version:        1.0.4
+    Version:        1.0.5
     License:        GNU General Public License v2 or later
     License URI:    http://www.gnu.org/licenses/gpl-2.0.html
     Tags:           default
@@ -15,56 +15,57 @@
 	height: 100%;	/* required to have the background-color take effect. */ 
 }
 
-.fetch-tweets-rotator a {
-	text-decoration: none !important;
+.fetch-tweets-rotator_wrapper .fetch-tweets-rotator a {
+	text-decoration: none;
+    border-bottom: none;
 }
 
 /**
  * Intent Buttons
  */
-.fetch-tweets-rotator-intent-buttons {
-	text-align: right !important;
-	font-size: smaller !important;
-	margin: 0 !important;
-	padding: 0 !important;		
+.fetch-tweets-rotator-body > ul.fetch-tweets-rotator-intent-buttons {
+	text-align: right;
+	font-size: smaller;
+	margin: 0;
+	padding: 0;		
 }
-.fetch-tweets-rotator-intent-buttons a ,
-.fetch-tweets-rotator-intent-icon a:hover {
-	text-decoration: none !important;
+.fetch-tweets-rotator-body > ul.fetch-tweets-rotator-intent-buttons  a ,
+.fetch-tweets-rotator-body > ul.fetch-tweets-rotator-intent-buttons .fetch-tweets-rotator-intent-icon a:hover {
+	text-decoration: none;
 }
-.fetch-tweets-rotator-intent-buttons li {
-	display: inline !important;
+.fetch-tweets-rotator-body > ul.fetch-tweets-rotator-intent-buttons > li {
+	display: inline;
 }
-ul.fetch-tweets-rotator-intent-buttons li {
-	margin-left: 0 !important;
-	list-style-type: none !important;
+.fetch-tweets-rotator-body > ul.fetch-tweets-rotator-intent-buttons > li {
+	margin-left: 0;
+	list-style-type: none;
 }
-.fetch-tweets-rotator-intent-buttons-text {
-	vertical-align: middle !important;
+.fetch-tweets-rotator-body > ul.fetch-tweets-rotator-intent-buttons > li > a > span.fetch-tweets-rotator-intent-buttons-text {
+	vertical-align: middle;
 }
-.fetch-tweets-rotator-intent-icon {
-	display: inline-block !important;
-	vertical-align: middle !important;
-	width: 16px !important;
-	height: 16px !important;
-	background-position: 0 0 !important;
-	background-repeat:no-repeat !important;
+.fetch-tweets-rotator-body > ul.fetch-tweets-rotator-intent-buttons > li > a > span.fetch-tweets-rotator-intent-icon {
+	display: inline-block;
+	vertical-align: middle;
+	width: 16px;
+	height: 16px;
+	background-position: 0 0;
+	background-repeat:no-repeat;
 }
-.fetch-tweets-rotator-intent-icon:hover  {
-	background-position: -16px 0 !important;
+.fetch-tweets-rotator-body > ul.fetch-tweets-rotator-intent-buttons > li > a > span.fetch-tweets-rotator-intent-icon:hover {
+	background-position: -16px 0;
 }
 
 /**
  * Body
  */
-.fetch-tweets-rotator-body {
-	display: block !important;	/* keep the intent buttons together */
-	margin-bottom: 1em !important;	/* a margin between tweet items */
+.fetch-tweets-rotator-item > .fetch-tweets-rotator-main > .fetch-tweets-rotator-body {
+	display: block;	/* keep the intent buttons together */
+	margin-bottom: 1em;	/* a margin between tweet items */
 }
 /**
  * Tweet text 
  */
-div.fetch-tweets-rotator-body p.fetch-tweets-rotator-text {
+.fetch-tweets-rotator-item > .fetch-tweets-rotator-main > div.fetch-tweets-rotator-body p.fetch-tweets-rotator-text {
 	margin-bottom: 0 ;
 }
 
@@ -72,19 +73,19 @@ div.fetch-tweets-rotator-body p.fetch-tweets-rotator-text {
  * Embedded media and images
  */
 .fetch-tweets-rotator .fetch-tweets-rotator-external-media {
-	clear: both ;
+	clear: both;
 }
 .fetch-tweets-rotator .fetch-tweets-rotator-media-photo {
 }
 .fetch-tweets-rotator .fetch-tweets-external-media img,
 .fetch-tweets-rotator .fetch-tweets-rotator-external-media img,
 .fetch-tweets-rotator .fetch-tweets-rotator-media-photo img {
-	max-width: 100% !important;
-	height: auto !important;	
+	max-width: 100%;
+	height: auto;	
 }
 .fetch-tweets-rotator .fetch-tweets-rotator-media {
 }
-.fetch-tweets-rotator .fetch-tweets-media {
+.fetch-tweets-rotator .fetch-tweets-rotator-items > .fetch-tweets-rotator-item > .fetch-tweets-rotator-main > .fetch-tweets-rotator-body > .fetch-tweets-media {
     margin-top: 0.5em;
     margin-bottom: 0.5em;
 }
@@ -105,9 +106,4 @@ div.fetch-tweets-rotator-body p.fetch-tweets-rotator-text {
 }
 
 .fetch-tweets-rotator_wrapper {
-    /* background-color: transparent;
-    border: 5px 5px solid transparent; */
-/*     box-shadow: 0 0 5px #ccc;
-    box-shadow: 0 0 5px 1px #ccc\9;  */
 } 
-    /* IE only   */
